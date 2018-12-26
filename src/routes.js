@@ -7,17 +7,12 @@ const router = new Router();
 router.get(
   "/auth",
   passport.authenticate("jwt", { session: false }),
-
   async ctx => {
-    if (passport.authenticate("jwt")) {
-      ctx.body = "success";
-    } else {
-      ctx.body = "failed";
-    }
+    ctx.body = "success";
   }
 );
 
-router.get("/noauth", (ctx, next) => {
+router.get("/noauth", async (ctx, next) => {
   ctx.body = "public route successful";
 });
 
