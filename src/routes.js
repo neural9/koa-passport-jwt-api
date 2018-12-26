@@ -1,0 +1,24 @@
+const Router = require("koa-router");
+const passport = require("koa-passport");
+const fs = require("fs");
+
+const router = new Router();
+
+router.get(
+  "/auth",
+  passport.authenticate("jwt", { session: false }),
+
+  async ctx => {
+    if (passport.authenticate("jwt")) {
+      ctx.body = "success";
+    } else {
+      ctx.body = "failed";
+    }
+  }
+);
+
+router.get("/noauth", (ctx, next) => {
+  ctx.body = "public route successful";
+});
+
+module.exports = router;
